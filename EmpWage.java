@@ -1,20 +1,16 @@
 public class EmpWage {
 	 //CONSTANTS
-      public static final int IS_PART_TIME=1;
-      public static final int IS_FULL_TIME=2;
-      public static final int EMP_RATE_PER_HOUR=20;
-		public static final int NUM_OF_WORKING_DAYS=2;
-		public static final int MAX_HRS_IN_MONTH=10;
+	public static final int IS_PART_TIME=1;
+      	public static final int IS_FULL_TIME=2;
 
-	public static int calcEmpWage() {
+	public static int calcEmpWageForCompany(String company,int empRate,int numOfDays,int maxHrs) {
 		//VARIABLES
-		int empWage=0;
-		int totalEmpWage=0;
+
+		int empHrs=0;
 		int totalWorkingDays=0;
 		int totalEmpHrs=0;
 		//COMPUTATION
-		while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS) {
-			int empHrs=0;
+		while (totalEmpHrs <= maxHrs && totalWorkingDays < numOfDays) {
 			int empCheck= (int) Math.floor(Math.random()*10) %3;
 			totalWorkingDays++;
 			switch(empCheck) {
@@ -28,15 +24,15 @@ public class EmpWage {
 					empHrs=0;
 				}
 		totalEmpHrs += empHrs;
-		empWage=empHrs*EMP_RATE_PER_HOUR;
-		totalEmpWage += empWage;
-		System.out.println("Emp Wage: " +empWage);
+		System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs);
 		}
-		System.out.println("Total Emp Wage: " +totalEmpWage);
+		int totalEmpWage=totalEmpHrs * empRate;
+		System.out.println("Total Emp Wage for Company : " +company+ " is : " +totalEmpWage);
 		return totalEmpWage;
 	}
 
 	public static void main(String[] args) {
-		int totalWage = calcEmpWage();
+		calcEmpWageForCompany("DMart",20,2,10);
+		calcEmpWageForCompany("Reliance",10,4,20);
 	}
 }
