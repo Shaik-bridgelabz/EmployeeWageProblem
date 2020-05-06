@@ -7,6 +7,7 @@ public class EmpWage {
 
     private int numOfCompany=0;
     private ArrayList<CompanyEmpWage> companyEmpWageArrayList=new ArrayList<CompanyEmpWage>();
+    private Dictionary<String,Integer> totalEmpWageStore = new Hashtable<String,Integer>();
 
     private void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDay,int maxHoursPerMonth) {
         CompanyEmpWage companyEmpWageData  = new CompanyEmpWage(company,empRatePerHour,numOfWorkingDay,maxHoursPerMonth);
@@ -14,11 +15,25 @@ public class EmpWage {
         numOfCompany++;
     }
 
-    public void computeEmpWage() {
+    private void computeEmpWage() {
         for ( int i = 0; i < numOfCompany; i++) {
             int totalEmpWage = this.computeEmpWage(companyEmpWageArrayList.get(i));
             System.out.println(" Total Emp Wage For Company " +companyEmpWageArrayList.get(i).company + " is: " +totalEmpWage);
+	    totalEmpWageStore.put(companyEmpWageArrayList.get(i).company,totalEmpWage);
         }
+    }
+
+    public void getTotalEmpWage() {
+    	int input=2;
+		while(input !=0 ) {
+			Scanner sc= new Scanner(System.in);
+			System.out.println("Enter the company name :");
+			String companyName=sc.next();
+			System.out.println("The total employee wage of "+companyName+" is :"+totalEmpWageStore.get(companyName));
+			System.out.println("If you want to check for another compnay then Enter 1");
+			System.out.println("To Exit Press 0");
+			input = sc.nextInt();
+		}
     }
 
     public int computeEmpWage(CompanyEmpWage companyEmpWage) {
@@ -44,7 +59,7 @@ public class EmpWage {
             }
             totalEmpHrs += empHrs;
 	    int dailyWage=companyEmpWage.empRatePerHour*empHrs;
-            System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs+ "Daily Wage : " +dailywage);
+            System.out.println("Day#: " + totalWorkingDays+ " Emp Hr : " +empHrs+ "Daily Wage : " +dailyWage);
         }
         return totalEmpHrs * companyEmpWage.empRatePerHour;
     }
@@ -55,6 +70,7 @@ public class EmpWage {
         empWage.addCompanyEmpWage( "DMart", 20, 20, 10);
         empWage.addCompanyEmpWage( "BigBasket", 30, 20, 20);
         empWage.computeEmpWage();
+	empWage.getTotalEmpWage();
     }
 
     private class CompanyEmpWage {
